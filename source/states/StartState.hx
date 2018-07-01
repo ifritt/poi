@@ -1,23 +1,28 @@
 package states;
 
 import flixel.*;
+import flixel.util.*;
 import flixel.FlxG;
 import flixel.input.mouse.FlxMouseEventManager;
 
 import object.ui.*;
+import object.ui.Transition;
 
-class StartState extends FlxState
+class StartState extends PoiState
 {
 	// public var hudElements:List<HUD>
 
 	override public function create():Void
 	{
-		super.create();
 		FlxG.plugins.add(new FlxMouseEventManager());
 
-		var menu:Menu = new Menu();
+		add(new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE));
+
+		var menu:Menu = new Menu(this);
 		menu.makeMainMenu();
 		add(menu);
+		
+		super.create();
 	}
 
 	override public function update(elapsed:Float):Void
