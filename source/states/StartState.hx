@@ -6,7 +6,6 @@ import flixel.FlxG;
 import flixel.input.mouse.FlxMouseEventManager;
 
 import object.ui.*;
-import object.ui.Transition;
 
 class StartState extends PoiState
 {
@@ -21,8 +20,11 @@ class StartState extends PoiState
 		var menu:Menu = new Menu(this);
 		menu.makeMainMenu();
 		add(menu);
-		
+
+		// init classes and functions before supercall
 		super.create();
+		// functions based off inited classes, after supercall
+
 	}
 
 	override public function update(elapsed:Float):Void

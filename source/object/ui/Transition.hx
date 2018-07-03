@@ -18,7 +18,7 @@ class Transition
         currentState = initialState;
         transitionObject = new FlxSprite(0, 0);
         initialState.add(transitionObject);
-        trace("transition initialized");
+        trace("transition class inited");
     }
 
     /**
@@ -31,10 +31,15 @@ class Transition
         onCompleteCallback = onComplete;
         switch (transitionType)
         {
+            case -1:
+            {
+                // normal transition animation. instant
+                normalTransitionIn(0);
+            }
             case 0:
             {
                 // normal transition animation.
-                normalTransitionIn();
+                normalTransitionIn(0.5);
             }
         }
     }
@@ -49,10 +54,15 @@ class Transition
         onCompleteCallback = onComplete;
         switch (transitionType)
         {
+            case -1:
+            {
+                // normal transition animation. instant
+                normalTransitionOut(0);
+            }
             case 0:
             {
                 // normal transition animation.
-                normalTransitionOut();
+                normalTransitionOut(0.5);
             }
         }
     }
@@ -60,20 +70,20 @@ class Transition
     /**
      *  Transition In
      */
-    private function normalTransitionIn()
+    private function normalTransitionIn(delay:Float)
     {
         transitionObject.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-        FlxTween.tween(transitionObject, {x: FlxG.width}, 0.3, {ease: FlxEase.quadOut, onComplete: onComplete, startDelay: 0.5});
+        FlxTween.tween(transitionObject, {x: FlxG.width}, 0.3, {ease: FlxEase.quadOut, onComplete: onComplete, startDelay: delay});
     }
 
     /**
      *  Transition Out
      */
-    private function normalTransitionOut()
+    private function normalTransitionOut(delay:Float)
     {
         transitionObject.setPosition(FlxG.width, 0);
         transitionObject.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-        FlxTween.tween(transitionObject, {x: 0}, 0.3, {ease: FlxEase.quadOut, onComplete: onComplete, startDelay: 0.5});
+        FlxTween.tween(transitionObject, {x: 0}, 0.3, {ease: FlxEase.quadOut, onComplete: onComplete, startDelay: delay});
     }
 
     private function onComplete(tween:FlxTween)
@@ -84,5 +94,6 @@ class Transition
 
 class TransitionType
 {
+    public static var INSTANT(default, null):Int = -1;
     public static var NORMAL(default, null):Int = 0;
 }

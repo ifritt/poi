@@ -1,6 +1,6 @@
 # poi
 
 TODO:
-  - dialog engine
+  - ~~dialog engine~~
   - isometric collision 
   - hud

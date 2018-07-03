@@ -32,7 +32,7 @@ class Menu extends FlxGroup
 
 		/* Main Menu */
 		var startButton = new StartButton(100, 400, mainMenu, startMenu);
-		var quitButton = new QuitButton(100, 430);
+		var quitButton = new QuitButton(100, 430, state);
 		mainMenu.add(startButton);
 		mainMenu.add(quitButton);
 		mainMenu.init(true);

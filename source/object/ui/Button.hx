@@ -20,7 +20,7 @@ class ButtonGroup extends FlxTypedGroup<MenuButton>
 
 	public function new()
 	{
-		super(16);
+		super();
 	}
 
 	public function init(isAlive:Bool)
@@ -283,16 +283,24 @@ class StartButton extends MenuButton
  */
 class QuitButton extends MenuButton
 {
-	public function new(x:Float, y:Float)
+	private var state:PoiState;
+	public function new(x:Float, y:Float, currentState:PoiState)
 	{
 		super(x, y, "quit", true);
+		state = currentState;
 	}
 
 	override public function onMouseUp(_)
 	{
 		super.onMouseUp(_);
-		if (activated) System.exit(0);
+		state.transition.transitionOut(TransitionType.INSTANT, onComplete);
 		// do quit logic
+		// if (activated) System.exit(0);
+	}
+
+	private function onComplete()
+	{
+		if (activated) System.exit(0);
 	}
 }
 
@@ -321,7 +329,6 @@ class NewGameButton extends MenuButton
     private function onComplete()
     {
         FlxG.switchState(targetState);
-
     }
 }
 
